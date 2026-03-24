@@ -126,6 +126,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.events.EventTrigger;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -180,8 +181,12 @@ public class RobotContainer {
             configureBindings();
 
             //Named Commands
-            NamedCommands.registerCommand("shootTurret", new TurretControl(turret, 16).withTimeout(15));
-            NamedCommands.registerCommand("runFlywheel", new RollerControl(roller, 0.75).withTimeout(15));
+            new EventTrigger("runIntake")
+                .whileTrue(new IntakeControl(intake, 0.75));
+
+            new EventTrigger("shootTurret")
+                .whileTrue(new TurretControl(turret, 20));
+                
             // Build an auto chooser. This will use Commands.none() as the default option.
 
             // Another option that allows you to specify the default auto by its name
