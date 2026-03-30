@@ -1,18 +1,18 @@
 package frc.robot.Commands;
 
-import frc.robot.subsystems.RollerSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.SpindexterSubsystem;
 
-public class RollerControl extends Command{
+public class SpindexterControl extends Command{
     //defines the intake subsystem and speed
-    private final RollerSubsystem roller;
+    private final SpindexterSubsystem spindexter;
     private final double speed;
 
     //Command for Intake; sets the correct subsystem and speed for the Command
-    public RollerControl(RollerSubsystem roller, double speed) {
-        this.roller = roller;
+    public SpindexterControl(SpindexterSubsystem spindexter, double speed) {
+        this.spindexter = spindexter;
         this.speed = speed;
-        addRequirements(roller);
+        addRequirements(spindexter);
     }
 
     @Override
@@ -23,14 +23,14 @@ public class RollerControl extends Command{
     @Override
     public void execute(){
         //runs the intake at the designated speed
-        roller.setMotorRoller(speed);
+        spindexter.setMotorSpindexter(speed);
 
     }
 
     @Override
     public void end(boolean interrupted) {
         //sets the speed of the intake at 0 when not used
-        roller.setMotorRoller(0);
+        spindexter.setMotorSpindexter(0);
     }
 
     @Override
