@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.IntakeSubsystem;
 
 
 
@@ -31,6 +32,8 @@ public class RobotContainer {
     //private final SendableChooser<Command> autoChooser;
     boolean fieldcentriccount = true;
 
+    //Subsystems
+    private final IntakeSubsystem m_intake = new IntakeSubsystem();
 
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
@@ -44,7 +47,8 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    private final CommandXboxController joystick = new CommandXboxController(0);
+    //Joysticks
+    private final CommandXboxController m_joystick = new CommandXboxController(0);
     //private final CommandXboxController joystick2 = new CommandXboxController(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
@@ -69,9 +73,9 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed/2) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed/2) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                drive.withVelocityX(-m_joystick.getLeftY() * MaxSpeed/2) // Drive forward with negative Y (forward)
+                    .withVelocityY(-m_joystick.getLeftX() * MaxSpeed/2) // Drive left with negative X (left)
+                    .withRotationalRate(-m_joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
 
@@ -84,13 +88,21 @@ public class RobotContainer {
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
-        joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        m_joystick.back().and(m_joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        m_joystick.back().and(m_joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        m_joystick.start().and(m_joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        m_joystick.start().and(m_joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // reset the field-centric heading on y press
         //joystick.y().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
+
+        m_joystick.rightBumper().whileTrue(
+
+            m_intake.runEnd(
+                () -> m_intake.setMotorIntake(1),
+                () -> m_intake.setMotorIntake(0)
+            )
+        );
 
         drivetrain.registerTelemetry(logger::telemeterize);
         
