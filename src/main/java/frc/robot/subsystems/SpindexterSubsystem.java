@@ -13,16 +13,32 @@ public class SpindexterSubsystem extends SubsystemBase {
     private final TalonFX SpindexterTalonFX = new TalonFX(13); //replace with deviceID
     private TalonFXConfiguration SpindexterTalonFXConfigs = new TalonFXConfiguration();
 
+    //motor for tunnel
+    private final TalonFX TunnelTalonFX = new TalonFX(15); //replace with deviceID
+    private TalonFXConfiguration TunnelTalonFXConfigs = new TalonFXConfiguration();
+
     //sets the Spindexter Motor speed
     public void setMotorSpindexter(double speed){
-        var limitConfigs = new CurrentLimitsConfigs();
+        var spindexterLimitConfigs = new CurrentLimitsConfigs();
         SpindexterTalonFXConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        limitConfigs.StatorCurrentLimit = 160;
-        limitConfigs.StatorCurrentLimitEnable = true;
+        spindexterLimitConfigs.StatorCurrentLimit = 160;
+        spindexterLimitConfigs.StatorCurrentLimitEnable = true;
         
         SpindexterTalonFX.set(-speed*.5);
 
-        SpindexterTalonFX.getConfigurator().apply(limitConfigs);
+        SpindexterTalonFX.getConfigurator().apply(spindexterLimitConfigs);
+    }
+
+    //sets the Tunnel Motor speed
+    public void setMotorTunnel(double speed){
+        var tunnelLimitConfigs = new CurrentLimitsConfigs();
+        TunnelTalonFXConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        tunnelLimitConfigs.StatorCurrentLimit = 160;
+        tunnelLimitConfigs.StatorCurrentLimitEnable = true;
+        
+        TunnelTalonFX.set(-speed*.5);
+
+        TunnelTalonFX.getConfigurator().apply(tunnelLimitConfigs);
     }
 
 }

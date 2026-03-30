@@ -6,11 +6,12 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.Constants.Constants.IntakeConstants.*;
 
 public class IntakeSubsystem extends SubsystemBase {
 
     //motors for Intake
-    private final TalonFX intakeTalonFX = new TalonFX(16);
+    private final TalonFX intakeTalonFX = new TalonFX(kIntakeMotorID);
     private TalonFXConfiguration IntakeConfigs = new TalonFXConfiguration();
 
     //sets the Intake Motors' speed
