@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.SpindexterSubsystem;
 
 
 
@@ -34,6 +35,7 @@ public class RobotContainer {
 
     //Subsystems
     private final IntakeSubsystem m_intake = new IntakeSubsystem();
+    private final SpindexterSubsystem m_spindexter = new SpindexterSubsystem();
 
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
@@ -96,11 +98,27 @@ public class RobotContainer {
         // reset the field-centric heading on y press
         //joystick.y().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
-        m_joystick.rightBumper().whileTrue(
+        m_joystick.rightTrigger().whileTrue(
 
             m_intake.runEnd(
                 () -> m_intake.setMotorIntake(1),
                 () -> m_intake.setMotorIntake(0)
+            )
+        );
+
+        m_joystick.rightBumper().whileTrue(
+
+            m_intake.runEnd(
+                () -> m_intake.setMotorIntake(-1),
+                () -> m_intake.setMotorIntake(0)
+            )
+        );
+
+        m_joystick.leftBumper().whileTrue(
+            
+            m_spindexter.runEnd(
+                () -> m_spindexter.setMotorIndexer(1),
+                () -> m_spindexter.setMotorIndexer(0)    
             )
         );
 

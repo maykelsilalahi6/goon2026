@@ -28,12 +28,14 @@ public class Constants {
         //  Spindexter Current Limits
         public static final int kIndexerStatorCurrentLimit = 40;
         public static final int kTunnelStatorCurrentLimit = 40;
-        public static final int kIndexerSpeedMultiplier = 1;
-        public static final int kTunnelSpeedMultiplier = 1;
+
+        //  Spindexter Speed Multipliers
+        public static final double kIndexerSpeedMultiplier = 1;
+        public static final double kTunnelSpeedMultiplier = 1;
 
         //  Spindexter Ramp Time Value
-        public static final double kSpindexterRampTime = 0.5;
-
+        public static final double kIndexerRampTime = 0.5;
+        public static final double kTunnelRampTime = 0.5;
     }
 
     //  2 Motors for Turret Subsystem
@@ -44,6 +46,10 @@ public class Constants {
         public static final int kTurretShooterMotorID = 15;
 
         //  Turret Current Limits
+        public static final int kTurretShooterStatorCurrentLimit = 40;
 
+        //  Turret Speed Multipliers
+        public static final double kTurretShooterSpeedMultiplier = 1;
+        public static final double kTurretBaseSpeedMultiplier = 1;
     }
 }
