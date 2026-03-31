@@ -47,6 +47,7 @@ public class Constants {
 
         //  Turret Current Limits
         public static final int kTurretShooterStatorCurrentLimit = 40;
+        public static final int kTurretBaseStatorCurrentLimit = 20;
 
         //  Turret Speed Multipliers
         public static final double kTurretShooterSpeedMultiplier = 1;
