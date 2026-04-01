@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.Subsystems.Turret;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
@@ -12,31 +12,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.Constants.TurretConstants.*;
 
-public class TurretSubsystem extends SubsystemBase{
+public class TurretBase extends SubsystemBase{
     
-    //  Motor for Turret Shooter
-    private final TalonFX m_turretShooterTalonFX = new TalonFX(kTurretShooterMotorID);
-    private final DutyCycleOut m_turretShooterMotorRequest = new DutyCycleOut(0.0);
-    private TalonFXConfiguration m_turretShooterConfigs = new TalonFXConfiguration();
-
     //  Motor for Turret Base
     private final TalonFX m_turretBaseTalonFX = new TalonFX(kTurretBaseMotorID);
     private final DutyCycleOut m_turretBaseMotorRequest = new DutyCycleOut(0.0);
     private TalonFXConfiguration m_turretBaseConfigs = new TalonFXConfiguration();
 
     //  PID Controller for Turret Base
-    private final PIDController m_turretBasePID = new PIDController(kP, kI, kD);
+    private final PIDController m_turretBasePID = new PIDController(kBaseP, kBaseI, kBaseD);
 
     //  Limelight Table
     private final NetworkTable m_limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
 
-    //  Motor configs
-    public TurretSubsystem() {
-
-        //  Turret Shooter configs
-        m_turretShooterConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        m_turretShooterConfigs.CurrentLimits.StatorCurrentLimit = kTurretShooterStatorCurrentLimit;
-        m_turretShooterConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
+    public TurretBase() {
 
         //  Turret Base configs
         m_turretBaseConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -49,8 +38,6 @@ public class TurretSubsystem extends SubsystemBase{
         m_turretBaseConfigs.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
         m_turretBaseConfigs.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
 
-        //  Applies configs
-        m_turretShooterTalonFX.getConfigurator().apply(m_turretShooterConfigs);  
         m_turretBaseTalonFX.getConfigurator().apply(m_turretBaseConfigs);
 
         //  Applies tolerance
@@ -91,18 +78,4 @@ public class TurretSubsystem extends SubsystemBase{
         m_turretBaseTalonFX.setControl(m_turretBaseMotorRequest.withOutput(0.0));
     }
 
-
-    //  Sets the Turret Shooter Motor speed
-    public void setMotorShooter(double speed) {
-
-        //  Applies turret shooter speed multiplier
-        double calculatedSpeed = speed * -kTurretShooterSpeedMultiplier;
-
-        //  Apply only the requested speed to the motor
-        m_turretShooterTalonFX.setControl(m_turretShooterMotorRequest.withOutput(calculatedSpeed));
-    }
-
-
 }
-
-

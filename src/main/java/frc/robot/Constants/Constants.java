@@ -22,11 +22,11 @@ public class Constants {
     //  2 Motors for the Spindexter Subsystem
     public static class SpindexterConstants {
 
-        //Spindexter Physical Measurements
+        //  Spindexter Physical Measurements
         public static final double kOmniwheelRadiusInInches = 3.0;
         public static final double kTunnelFlywheelRadiusInInches = 1.0;
 
-        // Spindexter Motor IDs
+        //  Spindexter Motor IDs
         public static final int kIndexerMotorID = 16;
         public static final int kTunnelMotorID = 16;
 
@@ -38,7 +38,7 @@ public class Constants {
 
         //  Spindexter Speed Multipliers
         public static final double kIndexerSpeedMultiplier = 1;
-        public static final double kTunnelSpeedMultiplier = 1;
+        public static final double kTunnelSpeedMultiplier = 1 / 3; //  (ratio of Omniwheel r to Tunnel Flywheel r)
 
         //  Spindexter Ramp Time Value
         public static final double kIndexerRampTime = 0.5;
@@ -64,14 +64,17 @@ public class Constants {
     public static class TurretConstants {
 
         //  Turret Motor IDs
+        public static final int kTurretHoodMotorID = 17;
         public static final int kTurretBaseMotorID = 16;
         public static final int kTurretShooterMotorID = 15;
 
         //  Turret Current Limits
+        public static final int kTurretHoodStatorCurrentLimit = 40;
         public static final int kTurretShooterStatorCurrentLimit = 40;
         public static final int kTurretBaseStatorCurrentLimit = 20;
 
         //  Turret Speed Multipliers
+        public static final int kTurretHoodSpeedMultiplier = 1;
         public static final double kTurretShooterSpeedMultiplier = 1;
         public static final double kTurretBaseSpeedMultiplier = 1;
 
@@ -79,9 +82,15 @@ public class Constants {
         public static final int kTurretBaseForwardSoftLimitThreshold = 10;
         public static final int kTurretBaseReverseSoftLimitThreshold = -10;
 
-        //  Turret Base PID values
-        public static final double kP = 0.0015;
-        public static final double kI = 0.0;
-        public static final double kD = 0.0;
+        //  Turret Base PID Values
+        public static final double kBaseP = 0.0015;
+        public static final double kBaseI = 0.0;
+        public static final double kBaseD = 0.0;
+
+        //  Turret Hood PID Values
+        public static final double kHoodP = 0.0015;
+        public static final double kHoodI = 0.0;
+        public static final double kHoodD = 0.0;
+
     }
 }
