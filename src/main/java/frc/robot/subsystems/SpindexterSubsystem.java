@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -13,30 +14,46 @@ public class SpindexterSubsystem extends SubsystemBase {
     
     //  Master configs for Indexer
     private final TalonFX m_indexerTalonFX = new TalonFX(kIndexerMotorID);
-    private final DutyCycleOut m_indexerMotorRequest = new DutyCycleOut(0.0);
+    private final VelocityVoltage m_indexerVelocityRequest = new VelocityVoltage(0.0);
     private TalonFXConfiguration m_indexerConfigs = new TalonFXConfiguration();
 
     //  Master configs for Tunnel
     private final TalonFX m_tunnelTalonFX = new TalonFX(kTunnelMotorID);
-    private final DutyCycleOut m_tunnelMotorRequest = new DutyCycleOut(0.0);
+    private final VelocityVoltage m_tunnelVelocityRequest = new VelocityVoltage(0.0);
     private TalonFXConfiguration m_tunnelConfigs = new TalonFXConfiguration();
 
     //  Motor configs
     public SpindexterSubsystem() {
 
-        //  Indexer configs
+        //  ------Indexer configs------
         m_indexerConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         m_indexerConfigs.CurrentLimits.StatorCurrentLimit = kIndexerStatorCurrentLimit;
+        m_indexerConfigs.CurrentLimits.SupplyCurrentLimit = kIndexerSupplyCurrentLimit;
         m_indexerConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
-        m_indexerConfigs.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = kIndexerRampTime;
+        m_indexerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
+        m_indexerConfigs.ClosedLoopRamps.VoltageClosedLoopRampPeriod = kIndexerRampTime;
 
-        //  Tunnel configs
+        //  Indexer PID
+        m_indexerConfigs.Slot0.kV = kIndexerV;
+        m_indexerConfigs.Slot0.kP = kIndexerP;
+        m_indexerConfigs.Slot0.kI = kIndexerI;
+        m_indexerConfigs.Slot0.kD = kIndexerD;
+
+        //  ------Tunnel configs------
         m_tunnelConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-        m_tunnelConfigs.CurrentLimits.StatorCurrentLimit = kIndexerStatorCurrentLimit;
+        m_tunnelConfigs.CurrentLimits.StatorCurrentLimit = kTunnelStatorCurrentLimit;
+        m_tunnelConfigs.CurrentLimits.SupplyCurrentLimit = kTunnelSupplyCurrentLimit;
         m_tunnelConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
-        m_tunnelConfigs.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = kTunnelRampTime;
+        m_tunnelConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
+        m_tunnelConfigs.ClosedLoopRamps.VoltageClosedLoopRampPeriod = kTunnelRampTime;
+        
+        //  Tunnel PID
+        m_tunnelConfigs.Slot0.kV = kTunnelV;
+        m_tunnelConfigs.Slot0.kP = kTunnelP;
+        m_tunnelConfigs.Slot0.kI = kTunnelI;
+        m_indexerConfigs.Slot0.kD = kTunnelD;
 
-        //  Applies configs
+        //  ------Applies configs------
         m_indexerTalonFX.getConfigurator().apply(m_indexerConfigs);
         m_tunnelTalonFX.getConfigurator().apply(m_tunnelConfigs);
 
@@ -49,7 +66,7 @@ public class SpindexterSubsystem extends SubsystemBase {
         double calculatedSpeed = speed * -kIndexerSpeedMultiplier;
 
         //  Apply only the requested speed to the motor
-        m_indexerTalonFX.setControl(m_indexerMotorRequest.withOutput(calculatedSpeed));
+        m_indexerTalonFX.setControl(m_indexerVelocityRequest.withVelocity(calculatedSpeed));
     }
 
     //  Sets the Tunnel Motor speed
@@ -59,7 +76,7 @@ public class SpindexterSubsystem extends SubsystemBase {
         double calculatedSpeed = speed * -kTunnelSpeedMultiplier;
 
         //  Apply only the requested speed to the motor
-        m_tunnelTalonFX.setControl(m_tunnelMotorRequest.withOutput(calculatedSpeed));
+        m_tunnelTalonFX.setControl(m_tunnelVelocityRequest.withVelocity(calculatedSpeed));
     }
 
 }
