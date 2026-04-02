@@ -34,8 +34,6 @@ public class SpindexterSubsystem extends SubsystemBase {
         //  ------Indexer PID------
         m_indexerConfigs.Slot0.kV = kIndexerV;
         m_indexerConfigs.Slot0.kP = kIndexerP;
-        m_indexerConfigs.Slot0.kI = kIndexerI;
-        m_indexerConfigs.Slot0.kD = kIndexerD;
 
         //  ------Tunnel Configs------
         m_tunnelConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
