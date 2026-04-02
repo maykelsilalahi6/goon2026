@@ -21,10 +21,9 @@ public class SpindexterSubsystem extends SubsystemBase {
     private final VelocityVoltage m_tunnelVelocityRequest = new VelocityVoltage(0.0);
     private TalonFXConfiguration m_tunnelConfigs = new TalonFXConfiguration();
 
-    //  Motor configs
     public SpindexterSubsystem() {
 
-        //  ------Indexer configs------
+        //  ------Indexer Configs------
         m_indexerConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         m_indexerConfigs.CurrentLimits.StatorCurrentLimit = kIndexerStatorCurrentLimit;
         m_indexerConfigs.CurrentLimits.SupplyCurrentLimit = kIndexerSupplyCurrentLimit;
@@ -32,13 +31,13 @@ public class SpindexterSubsystem extends SubsystemBase {
         m_indexerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
         m_indexerConfigs.ClosedLoopRamps.VoltageClosedLoopRampPeriod = kIndexerRampTime;
 
-        //  Indexer PID
+        //  ------Indexer PID------
         m_indexerConfigs.Slot0.kV = kIndexerV;
         m_indexerConfigs.Slot0.kP = kIndexerP;
         m_indexerConfigs.Slot0.kI = kIndexerI;
         m_indexerConfigs.Slot0.kD = kIndexerD;
 
-        //  ------Tunnel configs------
+        //  ------Tunnel Configs------
         m_tunnelConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         m_tunnelConfigs.CurrentLimits.StatorCurrentLimit = kTunnelStatorCurrentLimit;
         m_tunnelConfigs.CurrentLimits.SupplyCurrentLimit = kTunnelSupplyCurrentLimit;
@@ -46,13 +45,11 @@ public class SpindexterSubsystem extends SubsystemBase {
         m_tunnelConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
         m_tunnelConfigs.ClosedLoopRamps.VoltageClosedLoopRampPeriod = kTunnelRampTime;
         
-        //  Tunnel PID
+        //  ------Tunnel PID------
         m_tunnelConfigs.Slot0.kV = kTunnelV;
         m_tunnelConfigs.Slot0.kP = kTunnelP;
-        m_tunnelConfigs.Slot0.kI = kTunnelI;
-        m_indexerConfigs.Slot0.kD = kTunnelD;
 
-        //  ------Applies configs------
+        //  ------Applies Configs------
         m_indexerTalonFX.getConfigurator().apply(m_indexerConfigs);
         m_tunnelTalonFX.getConfigurator().apply(m_tunnelConfigs);
 

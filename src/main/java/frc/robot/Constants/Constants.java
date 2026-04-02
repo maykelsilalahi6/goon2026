@@ -19,44 +19,43 @@ public class Constants {
 
     }
 
-    //  2 Motors for the Spindexter Subsystem
+    /*
+     *  ------SPINDEXTER------
+     * -Indexer: Falcon 500 Direct
+     * -Tunnel: Falcon 500 Direct
+     * 
+     */
     public static class SpindexterConstants {
 
-        //  Spindexter Physical Measurements
+        //  ------Spindexter Physical Measurements------
         public static final double kOmniwheelRadiusInInches = 3.0;
         public static final double kTunnelFlywheelRadiusInInches = 1.0;
 
-        //  Spindexter Motor IDs
+        //  ------Spindexter Motor IDs------
         public static final int kIndexerMotorID = 20;
         public static final int kTunnelMotorID = 17;
 
-        //  Spindexter Current Limits
+        //  ------Spindexter Current Limits------
         public static final int kIndexerStatorCurrentLimit = 40;
         public static final int kIndexerSupplyCurrentLimit = 40;
         public static final int kTunnelStatorCurrentLimit = 40;
         public static final int kTunnelSupplyCurrentLimit = 40;
 
-        //  Spindexter Speed Multipliers
+        //  ------Spindexter Speed Multipliers------
         public static final double kIndexerSpeedMultiplier = 1;
         public static final double kTunnelSpeedMultiplier = 1 / 3; //  (ratio of Omniwheel r to Tunnel Flywheel r)
 
-        //  Spindexter Ramp Time Value
-        public static final double kIndexerRampTime = 0.5;
-        public static final double kTunnelRampTime = 0.5;
+        //  ------Spindexter Ramp Time Value------
+        public static final double kIndexerRampTime = 1;
+        public static final double kTunnelRampTime = 1;
 
-        //  ------Spindexter PID Values------
-
-        //  Indexer PID Values
+        //  ------Indexer PID Values------
         public static final double kIndexerV = 0.12;
         public static final double kIndexerP = 0.11;
-        public static final double kIndexerI = 0.0;
-        public static final double kIndexerD = 0.0;
 
-        //  Tunnel PID Values
+        //  ------Tunnel PID Values------
         public static final double kTunnelV = 0.12;
         public static final double kTunnelP = 0.11;
-        public static final double kTunnelI = 0.0;
-        public static final double kTunnelD = 0.0;
 
     }
 
