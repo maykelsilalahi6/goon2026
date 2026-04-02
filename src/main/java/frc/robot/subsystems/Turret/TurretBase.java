@@ -11,6 +11,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.Constants.TurretConstants.*;
+import static frc.robot.Constants.Constants.FieldConstants.*;
+import static frc.robot.Constants.Constants.LimelightConstants.*;
 
 public class TurretBase extends SubsystemBase{
     
@@ -76,6 +78,24 @@ public class TurretBase extends SubsystemBase{
 
     public void stopTurret() {
         m_turretBaseTalonFX.setControl(m_turretBaseMotorRequest.withOutput(0.0));
+    }
+
+    /**
+     * Calculates distance to the AprilTag. 
+     * Returns -1.0 if no target is seen.
+     */
+    public double getDistanceToTarget() {
+        double tv = m_limelightTable.getEntry("tv").getDouble(0.0);
+        
+        if (tv == 0.0) {
+            return -1.0; // No target seen
+        }
+
+        double ty = m_limelightTable.getEntry("ty").getDouble(0.0);
+        double totalAngleDegrees = kLimelightAngleinDegrees + ty;
+        double angleRadians = Math.toRadians(totalAngleDegrees);
+        
+        return (kTowerHeightInInches - kLimelightHeightInInches) / Math.tan(angleRadians);
     }
 
 }

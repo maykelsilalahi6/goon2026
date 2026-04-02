@@ -6,7 +6,7 @@ public class Constants {
     public static class IntakeConstants {
 
         //  Intake Motor IDs
-        public static final int kIntakeMotorID = 16;
+        public static final int kIntakeMotorID = 18;
 
         //  Intake Current Limits
         public static final double kIntakeStatorCurrentLimit = 40.0;
@@ -27,8 +27,8 @@ public class Constants {
         public static final double kTunnelFlywheelRadiusInInches = 1.0;
 
         //  Spindexter Motor IDs
-        public static final int kIndexerMotorID = 16;
-        public static final int kTunnelMotorID = 16;
+        public static final int kIndexerMotorID = 20;
+        public static final int kTunnelMotorID = 17;
 
         //  Spindexter Current Limits
         public static final int kIndexerStatorCurrentLimit = 40;
@@ -64,9 +64,9 @@ public class Constants {
     public static class TurretConstants {
 
         //  Turret Motor IDs
-        public static final int kTurretHoodMotorID = 17;
-        public static final int kTurretBaseMotorID = 16;
-        public static final int kTurretShooterMotorID = 15;
+        public static final int kTurretHoodMotorID = 19;
+        public static final int kTurretBaseMotorID = 21;
+        public static final int kTurretShooterMotorID = 22;
 
         //  Turret Current Limits
         public static final int kTurretHoodStatorCurrentLimit = 40;
@@ -92,5 +92,23 @@ public class Constants {
         public static final double kHoodI = 0.0;
         public static final double kHoodD = 0.0;
 
+        //  Turret Hood Gear Ratio
+        public static final double kHoodConversionFactor = 360 / 100; // Conversion Factor = 360 / Total Gear Ratio
+
     }
+
+    public static class LimelightConstants {
+
+        //  Limelight Specifications
+        public static final double kLimelightHeightInInches = 17.5;
+        public static final double kLimelightAngleinDegrees = 15;
+    }
+
+    public static class FieldConstants {
+
+        //  Field Specifications
+        public static final double kTowerHeightInInches =  72.0;
+
+    }
+
 }
