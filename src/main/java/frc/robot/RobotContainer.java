@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.Subsystems.CommandSwerveDrivetrain;
-import frc.robot.Subsystems.IntakeSubsystem;
 import frc.robot.Subsystems.SpindexterSubsystem;
 
 
