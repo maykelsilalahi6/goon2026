@@ -25,6 +25,10 @@ public class TurretShooter extends SubsystemBase{
         m_turretShooterConfigs.CurrentLimits.StatorCurrentLimit = kTurretShooterStatorCurrentLimit;
         m_turretShooterConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
 
+        //  Turret Shooter PV configs
+        m_turretShooterConfigs.Slot0.kP = kShooterP;
+        m_turretShooterConfigs.Slot0.kV = kShooterV;
+
         //  Applies configs
         m_turretShooterTalonFX.getConfigurator().apply(m_turretShooterConfigs);  
 

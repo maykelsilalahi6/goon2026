@@ -25,7 +25,7 @@ import com.revrobotics.ResetMode;
 public class TurretHood extends SubsystemBase{
     
     //  Motor for Turret Hood
-    private final SparkMax m_TurretHoodNeo = new SparkMax(0, MotorType.kBrushless);
+    private final SparkMax m_TurretHoodNeo = new SparkMax(kTurretHoodMotorID, MotorType.kBrushless);
     SparkMaxConfig m_TurretHoodConfig = new SparkMaxConfig();
 
     //  PID Controller for Turret Hood
@@ -115,5 +115,7 @@ public class TurretHood extends SubsystemBase{
     public void stopHood() {
         m_TurretHoodNeo.set(0.0);
     }
+
+    
 
 }

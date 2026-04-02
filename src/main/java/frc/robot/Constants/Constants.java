@@ -82,6 +82,10 @@ public class Constants {
         public static final int kTurretBaseForwardSoftLimitThreshold = 10;
         public static final int kTurretBaseReverseSoftLimitThreshold = -10;
 
+        //  Turret Shooter PV Values
+        public static final double kShooterP = 0.12;
+        public static final double kShooterV = 0.11;
+
         //  Turret Base PID Values
         public static final double kBaseP = 0.0015;
         public static final double kBaseI = 0.0;
@@ -93,7 +97,7 @@ public class Constants {
         public static final double kHoodD = 0.0;
 
         //  Turret Hood Gear Ratio
-        public static final double kHoodConversionFactor = 360 / 100; // Conversion Factor = 360 / Total Gear Ratio
+        public static final double kHoodConversionFactor = 360.0 / 100.0; // Conversion Factor = 360 / Total Gear Ratio
 
     }
 

@@ -8,6 +8,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.Constants.TurretConstants.*;
@@ -96,6 +97,15 @@ public class TurretBase extends SubsystemBase{
         double angleRadians = Math.toRadians(totalAngleDegrees);
         
         return (kTowerHeightInInches - kLimelightHeightInInches) / Math.tan(angleRadians);
+    }
+
+    //  Gets current position of the turret base motor and pushes it to the dashboard
+    @Override
+    public void periodic() {
+
+        double currentBasePosition = m_turretBaseTalonFX.getPosition().getValueAsDouble();
+        SmartDashboard.putNumber("Turret Base Position", currentBasePosition);
+        
     }
 
 }
