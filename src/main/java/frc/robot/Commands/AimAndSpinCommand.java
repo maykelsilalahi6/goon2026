@@ -15,9 +15,6 @@ public class AimAndSpinCommand extends Command {
     private final InterpolatingDoubleTreeMap m_hoodMap = new InterpolatingDoubleTreeMap();
     private final InterpolatingDoubleTreeMap m_shooterMap = new InterpolatingDoubleTreeMap();
 
-    // The AprilTag ID for the speaker/target you want to shoot at
-    private final int m_targetTagID = 7; 
-
     public AimAndSpinCommand(TurretBase base, TurretHood hood, TurretShooter shooter) {
         m_base = base;
         m_hood = hood;
@@ -37,7 +34,7 @@ public class AimAndSpinCommand extends Command {
     @Override
     public void execute() {
         // 1. Aim the base left/right at the AprilTag
-        m_base.aimAtAprilTag(m_targetTagID);
+        m_base.aimAtAprilTag();
 
         // 2. Get the distance
         double distance = m_base.getDistanceToTarget();

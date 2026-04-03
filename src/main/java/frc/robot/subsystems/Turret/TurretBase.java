@@ -8,10 +8,15 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.Constants.TurretConstants.*;
+
+import java.util.Optional;
+
 import static frc.robot.Constants.Constants.FieldConstants.*;
 import static frc.robot.Constants.Constants.LimelightConstants.*;
 
@@ -48,19 +53,32 @@ public class TurretBase extends SubsystemBase{
 
     }
 
+    public void updateLimelightPipeline() {
+
+        Optional<Alliance> ally = DriverStation.getAlliance();
+
+        if (ally.isPresent()) {
+            if (ally.get() == Alliance.Red) {
+                m_limelightTable.getEntry("pipeline").setNumber(1);
+            } else {
+                m_limelightTable.getEntry("pipeline").setNumber(0);
+            }
+        }
+
+    }
+
     /**
      *  Call this method continuously (e.g., while a button is held) 
      *  to track a specific AprilTag ID.
      */
-    public void aimAtAprilTag(int targetID) {
+    public void aimAtAprilTag() {
 
         //  Read values from the Limelight
         double tv = m_limelightTable.getEntry("tv").getDouble(0.0);
         double tx = m_limelightTable.getEntry("tx").getDouble(0.0);
-        double tid = m_limelightTable.getEntry("tid").getDouble(-1.0);
 
         //  Do we see a target AND is it the correct AprilTag?
-        if (tv == 1.0 && tid == targetID) {
+        if (tv == 1.0) {
             
             //  Calculate the motor speed needed to bring tx to 0
             double pidOutput = m_turretBasePID.calculate(tx, 0.0);

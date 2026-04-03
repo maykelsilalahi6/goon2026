@@ -23,17 +23,19 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.Subsystems.CommandSwerveDrivetrain;
 import frc.robot.Subsystems.SpindexterSubsystem;
+import frc.robot.Subsystems.Turret.TurretShooter;
 
 
 
 
 public class RobotContainer {
 
-    //private final SendableChooser<Command> autoChooser;
+    // private SendableChooser<Command> autoChooser;
     boolean fieldcentriccount = true;
 
     //Subsystems
     private final SpindexterSubsystem m_spindexter = new SpindexterSubsystem();
+    private final TurretShooter m_turretShooter = new TurretShooter();
 
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
@@ -55,15 +57,25 @@ public class RobotContainer {
 
     public RobotContainer() {
 
+        // NamedCommands.registerCommand("exampleCommand", m_turretShooter.setMotorShooter());
+
         configureBindings();
 
-        // Allows you to specify the default auto by its name
-        //autoChooser = AutoBuilder.buildAutoChooser("Taxi Auto Red");
+        // For convenience a programmer could change this when going to competition.
+    //     boolean isCompetition = true;
 
-        
+    //     // Build an auto chooser. This will use Commands.none() as the default option.
+    //     // As an example, this will only show autos that start with "comp" while at
+    //     // competition as defined by the programmer
+    //     autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+    //         (stream) -> isCompetition
+    //             ? stream.filter(auto -> auto.getName().startsWith("comp"))
+    //             : stream
+    // );
 
-        //SmartDashboard.putData("Auto Chooser", autoChooser);
-    }
+    // SmartDashboard.putData("Auto Chooser", autoChooser);
+
+  }
 
     private void configureBindings() {
 
@@ -96,7 +108,7 @@ public class RobotContainer {
         // reset the field-centric heading on y press
         //joystick.y().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
-        m_joystick.leftBumper().whileTrue(
+        m_joystick.leftTrigger().whileTrue(
             
             m_spindexter.runEnd(
                 () -> m_spindexter.setMotorIndexer(1),
@@ -111,7 +123,7 @@ public class RobotContainer {
     
 
     public Command getAutonomousCommand() {
-        return new PathPlannerAuto("testcommand");
+        return new PathPlannerAuto("");
     }
 }
 

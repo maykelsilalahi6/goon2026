@@ -32,8 +32,8 @@ public class Constants {
         public static final double kTunnelFlywheelRadiusInInches = 1.0;
 
         //  ------Spindexter Motor IDs------
-        public static final int kIndexerMotorID = 20;
-        public static final int kTunnelMotorID = 17;
+        public static final int kIndexerMotorID = 17;
+        public static final int kTunnelMotorID = 14;
 
         //  ------Spindexter Current Limits------
         public static final int kIndexerStatorCurrentLimit = 40;
@@ -64,8 +64,8 @@ public class Constants {
 
         //  Turret Motor IDs
         public static final int kTurretHoodMotorID = 19;
-        public static final int kTurretBaseMotorID = 21;
-        public static final int kTurretShooterMotorID = 22;
+        public static final int kTurretBaseMotorID = 13;
+        public static final int kTurretShooterMotorID = 15;
 
         //  Turret Current Limits
         public static final int kTurretHoodStatorCurrentLimit = 40;
