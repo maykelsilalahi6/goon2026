@@ -5,6 +5,9 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
+
+import javax.xml.crypto.dsig.TransformService;
+
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -12,6 +15,8 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.*;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.math.geometry.Rotation2d;
@@ -22,8 +27,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.Subsystems.CommandSwerveDrivetrain;
-import frc.robot.Subsystems.SpindexterSubsystem;
-import frc.robot.Subsystems.Turret.TurretShooter;
 
 
 
@@ -33,9 +36,6 @@ public class RobotContainer {
     // private SendableChooser<Command> autoChooser;
     boolean fieldcentriccount = true;
 
-    //Subsystems
-    private final SpindexterSubsystem m_spindexter = new SpindexterSubsystem();
-    private final TurretShooter m_turretShooter = new TurretShooter();
 
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
@@ -53,7 +53,36 @@ public class RobotContainer {
     private final CommandXboxController m_joystick = new CommandXboxController(0);
     //private final CommandXboxController joystick2 = new CommandXboxController(1);
 
+    private final SlewRateLimiter m_accelLimiter = new SlewRateLimiter(1.0);
+    private double m_lastJoystickMag = 0.0;
+
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+
+    private Translation2d getLimitedTranslation(double xInput, double yInput) {
+
+        double currentMag = Math.hypot(xInput, yInput);
+
+        double limitedMag;
+        if (currentMag < m_lastJoystickMag) {
+
+            m_accelLimiter.reset(currentMag);
+            limitedMag = currentMag;
+
+        } else {
+
+            limitedMag = m_accelLimiter.calculate(currentMag);
+
+        }
+
+        m_lastJoystickMag = limitedMag;
+
+        if (currentMag == 0.0) {
+            return new Translation2d(0.0, 0.0);
+            };
+
+            double ratio = limitedMag / currentMag;
+            return new Translation2d(xInput * ratio, yInput * ratio);
+        }
 
     public RobotContainer() {
 
@@ -85,8 +114,9 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-m_joystick.getLeftY() * MaxSpeed/2) // Drive forward with negative Y (forward)
-                    .withVelocityY(-m_joystick.getLeftX() * MaxSpeed/2) // Drive left with negative X (left)
+
+                drive.withVelocityX(getLimitedTranslation(-m_joystick.getLeftY(), -m_joystick.getLeftX()).getX() * MaxSpeed) // Drive forward with negative Y (forward)
+                    .withVelocityY(getLimitedTranslation(-m_joystick.getLeftY(), -m_joystick.getLeftX()).getY() * MaxSpeed) // Drive left with negative X (left)
                     .withRotationalRate(-m_joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
@@ -106,18 +136,10 @@ public class RobotContainer {
         m_joystick.start().and(m_joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // reset the field-centric heading on y press
-        //joystick.y().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
-
-        m_joystick.leftTrigger().whileTrue(
-            
-            m_spindexter.runEnd(
-                () -> m_spindexter.setMotorIndexer(1),
-                () -> m_spindexter.setMotorIndexer(0)    
-            )
-        );
+        m_joystick.y().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
         drivetrain.registerTelemetry(logger::telemeterize);
-        
+
         }
 
     
