@@ -18,10 +18,6 @@ public class IntakeSubsystem extends SubsystemBase {
     private final SparkMax m_IntakeNeo = new SparkMax(kIntakeMotorID, MotorType.kBrushless);
     SparkMaxConfig m_IntakeConfig = new SparkMaxConfig();
 
-    //  PID Controller for Intake
-    //private final SparkClosedLoopController m_IntakePIDController = m_IntakeNeo.getClosedLoopController();
-    //private final RelativeEncoder m_IntakeEncoder = m_IntakeNeo.getEncoder();
-
     public IntakeSubsystem() {
 
         m_IntakeConfig
