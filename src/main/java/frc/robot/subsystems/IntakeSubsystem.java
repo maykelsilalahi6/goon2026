@@ -24,7 +24,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public IntakeSubsystem() {
 
-        m_IntakeConfig.encoder.positionConversionFactor(kIntakeConversionFactor);
         m_IntakeConfig
             .inverted(true)
             .idleMode(IdleMode.kBrake)
