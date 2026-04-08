@@ -21,6 +21,13 @@ public class Constants {
         //  Intake Ramp Time Value
         public static final double kIntakeRampTime = 1;
 
+        //  Intake PID Values
+        public static final double kIntakeV = 0.0;
+        public static final double kIntakeS = 0.0;
+        public static final double kIntakeP = 0.0;
+        public static final double kIntakeI = 0.0;
+        public static final double kIntakeD= 0.0;
+
         //  Intake Gear Ratio
         public static final double kIntakeConversionFactor = 12 / 1;
 

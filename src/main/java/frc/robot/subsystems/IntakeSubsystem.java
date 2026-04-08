@@ -20,10 +20,21 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public IntakeSubsystem() {
 
+        //  ------Indexer Configs------
         m_IntakeConfig
             .inverted(true)
             .idleMode(IdleMode.kBrake)
             .smartCurrentLimit(20);
+        
+        //  ------Indexer PID------
+        m_IntakeConfig.closedLoop
+            .p(kIntakeP)
+            .i(kIntakeI)
+            .d(kIntakeD)
+            .feedForward
+                .kV(kIntakeV)
+                .kS(kIntakeS);
+
         m_IntakeNeo.configure(m_IntakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     }
