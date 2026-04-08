@@ -1,42 +1,45 @@
-// package frc.robot.Subsystems;
+package frc.robot.Subsystems;
 
-// import com.ctre.phoenix6.configs.TalonFXConfiguration;
-// import com.ctre.phoenix6.controls.DutyCycleOut;
-// import com.ctre.phoenix6.hardware.TalonFX;
-// import com.ctre.phoenix6.signals.NeutralModeValue;
-// import edu.wpi.first.wpilibj2.command.SubsystemBase;
-// import static frc.robot.Constants.Constants.IntakeConstants.*;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
-// public class IntakeSubsystem extends SubsystemBase {
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-//     //  Master configs for Intake
-//     private final TalonFX m_intakeTalonFX = new TalonFX(kIntakeMotorID);
-//     private final DutyCycleOut m_intakeMotorRequest = new DutyCycleOut(0.0);
-//     private TalonFXConfiguration m_intakeConfigs = new TalonFXConfiguration();
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
 
-//     //  Motor configs
-//     public IntakeSubsystem() {
+import static frc.robot.Constants.Constants.IntakeConstants.*;
 
-//         //  Intake configs
-//         m_intakeConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-//         m_intakeConfigs.CurrentLimits.StatorCurrentLimit = kIntakeStatorCurrentLimit;
-//         m_intakeConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
-//         m_intakeConfigs.OpenLoopRamps.DutyCycleOpenLoopRampPeriod = kIntakeRampTime;
-
-//         //  Applies config
-//         m_intakeTalonFX.getConfigurator().apply(m_intakeConfigs);
-
-//     }
+public class IntakeSubsystem extends SubsystemBase {
     
-//     //  Sets the Intake Motor speed
-//     public void setMotorIntake(double speed) {
+    // Motor for Intake
+    private final SparkMax m_IntakeNeo = new SparkMax(kIntakeMotorID, MotorType.kBrushless);
+    SparkMaxConfig m_IntakeConfig = new SparkMaxConfig();
 
-//         //  Applies intake speed multiplier
-//         double calculatedSpeed = speed * -kIntakeSpeedMultiplier;
+    //  PID Controller for Intake
+    //private final SparkClosedLoopController m_IntakePIDController = m_IntakeNeo.getClosedLoopController();
+    //private final RelativeEncoder m_IntakeEncoder = m_IntakeNeo.getEncoder();
 
-//         //  Apply only the requested speed to the motor
-//         m_intakeTalonFX.setControl(m_intakeMotorRequest.withOutput(calculatedSpeed));
-//     }
-    
+    public IntakeSubsystem() {
 
-// }
+        m_IntakeConfig.encoder.positionConversionFactor(kIntakeConversionFactor);
+        m_IntakeConfig
+            .inverted(true)
+            .idleMode(IdleMode.kBrake)
+            .smartCurrentLimit(20);
+        m_IntakeNeo.configure(m_IntakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    }
+
+    public void setMotorIntake(double speed) {
+
+        //  Applies intake speed multiplier
+        double calculatedSpeed = speed * kIntakeSpeedMultiplier;
+
+        m_IntakeNeo.set(calculatedSpeed);
+
+    }
+
+}

@@ -1,117 +1,124 @@
-// package frc.robot.Constants;
+package frc.robot.Constants;
 
-// public class Constants {
+public class Constants {
 
-//     //  1 Motor for the Intake Subsystem
-//     public static class IntakeConstants {
+    /*
+     *  ------INTAKE------
+     * -Intake: Neo 550 12:1 Gear
+     * 
+     */
+    public static class IntakeConstants {
 
-//         //  Intake Motor IDs
-//         public static final int kIntakeMotorID = 18;
+        //  Intake Motor IDs
+        public static final int kIntakeMotorID = 18;
 
-//         //  Intake Current Limits
-//         public static final double kIntakeStatorCurrentLimit = 40.0;
+        //  Intake Current Limits
+        public static final double kIntakeStatorCurrentLimit = 40.0;
 
-//         //  Intake Speed Multiplier
-//         public static final double kIntakeSpeedMultiplier = 0.5;
+        //  Intake Speed Multiplier
+        public static final double kIntakeSpeedMultiplier = 0.5;
 
-//         //  Intake Ramp Time Value
-//         public static final double kIntakeRampTime = 1;
+        //  Intake Ramp Time Value
+        public static final double kIntakeRampTime = 1;
 
-//     }
+        //  Intake Gear Ratio
+        public static final double kIntakeConversionFactor = 12 / 1;
 
-//     /*
-//      *  ------SPINDEXTER------
-//      * -Indexer: Falcon 500 Direct
-//      * -Tunnel: Falcon 500 Direct
-//      * 
-//      */
-//     public static class SpindexterConstants {
+    }
 
-//         //  ------Spindexter Physical Measurements------
-//         public static final double kOmniwheelRadiusInInches = 3.0;
-//         public static final double kTunnelFlywheelRadiusInInches = 1.0;
+    /*
+     *  ------SPINDEXTER------
+     * -Indexer: Neo 550 Direct
+     * -Tunnel: Falcon 500 Direct
+     * 
+     */
+    public static class SpindexterConstants {
 
-//         //  ------Spindexter Motor IDs------
-//         public static final int kIndexerMotorID = 17;
-//         public static final int kTunnelMotorID = 14;
+        //  ------Spindexter Physical Measurements------
+        public static final double kOmniwheelRadiusInInches = 3.0;
+        public static final double kTunnelFlywheelRadiusInInches = 1.0;
 
-//         //  ------Spindexter Current Limits------
-//         public static final int kIndexerStatorCurrentLimit = 40;
-//         public static final int kIndexerSupplyCurrentLimit = 40;
-//         public static final int kTunnelStatorCurrentLimit = 40;
-//         public static final int kTunnelSupplyCurrentLimit = 40;
+        //  ------Spindexter Motor IDs------
+        public static final int kIndexerMotorID = 17;
+        public static final int kTunnelMotorID = 14;
 
-//         //  ------Spindexter Speed Multipliers------
-//         public static final double kIndexerSpeedMultiplier = 1;
-//         public static final double kTunnelSpeedMultiplier = 1 / 3; //  (ratio of Omniwheel r to Tunnel Flywheel r)
+        //  ------Spindexter Current Limits------
+        public static final int kIndexerStatorCurrentLimit = 40;
+        public static final int kIndexerSupplyCurrentLimit = 40;
+        public static final int kTunnelStatorCurrentLimit = 40;
+        public static final int kTunnelSupplyCurrentLimit = 40;
 
-//         //  ------Spindexter Ramp Time Value------
-//         public static final double kIndexerRampTime = 1;
-//         public static final double kTunnelRampTime = 1;
+        //  ------Spindexter Speed Multipliers------
+        public static final double kIndexerSpeedMultiplier = 1;
+        public static final double kTunnelSpeedMultiplier = 1 / 3; //  (ratio of Omniwheel r to Tunnel Flywheel r)
 
-//         //  ------Indexer PID Values------
-//         public static final double kIndexerV = 0.12;
-//         public static final double kIndexerP = 0.11;
+        //  ------Spindexter Ramp Time Value------
+        public static final double kIndexerRampTime = 1;
+        public static final double kTunnelRampTime = 1;
 
-//         //  ------Tunnel PID Values------
-//         public static final double kTunnelV = 0.12;
-//         public static final double kTunnelP = 0.11;
+        //  ------Indexer PID Values------
+        public static final double kIndexerV = 0.12;
+        public static final double kIndexerP = 0.11;
 
-//     }
+        //  ------Tunnel PID Values------
+        public static final double kTunnelV = 0.12;
+        public static final double kTunnelP = 0.11;
 
-//     //  2 Motors for Turret Subsystem
-//     public static class TurretConstants {
+    }
 
-//         //  Turret Motor IDs
-//         public static final int kTurretHoodMotorID = 19;
-//         public static final int kTurretBaseMotorID = 13;
-//         public static final int kTurretShooterMotorID = 15;
+    //  2 Motors for Turret Subsystem
+    public static class TurretConstants {
 
-//         //  Turret Current Limits
-//         public static final int kTurretHoodStatorCurrentLimit = 40;
-//         public static final int kTurretShooterStatorCurrentLimit = 40;
-//         public static final int kTurretBaseStatorCurrentLimit = 20;
+        //  Turret Motor IDs
+        public static final int kTurretHoodMotorID = 19;
+        public static final int kTurretBaseMotorID = 13;
+        public static final int kTurretShooterMotorID = 15;
 
-//         //  Turret Speed Multipliers
-//         public static final int kTurretHoodSpeedMultiplier = 1;
-//         public static final double kTurretShooterSpeedMultiplier = 1;
-//         public static final double kTurretBaseSpeedMultiplier = 1;
+        //  Turret Current Limits
+        public static final int kTurretHoodStatorCurrentLimit = 40;
+        public static final int kTurretShooterStatorCurrentLimit = 40;
+        public static final int kTurretBaseStatorCurrentLimit = 20;
 
-//         //  Turret Base Angle Limitations
-//         public static final int kTurretBaseForwardSoftLimitThreshold = 10;
-//         public static final int kTurretBaseReverseSoftLimitThreshold = -10;
+        //  Turret Speed Multipliers
+        public static final int kTurretHoodSpeedMultiplier = 1;
+        public static final double kTurretShooterSpeedMultiplier = 1;
+        public static final double kTurretBaseSpeedMultiplier = 1;
 
-//         //  Turret Shooter PV Values
-//         public static final double kShooterP = 0.12;
-//         public static final double kShooterV = 0.11;
+        //  Turret Base Angle Limitations
+        public static final int kTurretBaseForwardSoftLimitThreshold = 10;
+        public static final int kTurretBaseReverseSoftLimitThreshold = -10;
 
-//         //  Turret Base PID Values
-//         public static final double kBaseP = 0.0015;
-//         public static final double kBaseI = 0.0;
-//         public static final double kBaseD = 0.0;
+        //  Turret Shooter PV Values
+        public static final double kShooterP = 0.12;
+        public static final double kShooterV = 0.11;
 
-//         //  Turret Hood PID Values
-//         public static final double kHoodP = 0.0015;
-//         public static final double kHoodI = 0.0;
-//         public static final double kHoodD = 0.0;
+        //  Turret Base PID Values
+        public static final double kBaseP = 0.0015;
+        public static final double kBaseI = 0.0;
+        public static final double kBaseD = 0.0;
 
-//         //  Turret Hood Gear Ratio
-//         public static final double kHoodConversionFactor = 360.0 / 100.0; // Conversion Factor = 360 / Total Gear Ratio
+        //  Turret Hood PID Values
+        public static final double kHoodP = 0.0015;
+        public static final double kHoodI = 0.0;
+        public static final double kHoodD = 0.0;
 
-//     }
+        //  Turret Hood Gear Ratio
+        public static final double kHoodConversionFactor = 360.0 / 100.0; // Conversion Factor = 360 / Total Gear Ratio
 
-//     public static class LimelightConstants {
+    }
 
-//         //  Limelight Specifications
-//         public static final double kLimelightHeightInInches = 17.5;
-//         public static final double kLimelightAngleinDegrees = 15;
-//     }
+    public static class LimelightConstants {
 
-//     public static class FieldConstants {
+        //  Limelight Specifications
+        public static final double kLimelightHeightInInches = 17.5;
+        public static final double kLimelightAngleinDegrees = 15;
+    }
 
-//         //  Field Specifications
-//         public static final double kTowerHeightInInches =  72.0;
+    public static class FieldConstants {
 
-//     }
+        //  Field Specifications
+        public static final double kTowerHeightInInches =  72.0;
 
-// }
+    }
+
+}
