@@ -49,16 +49,19 @@ public class Constants {
         public static final int kTunnelSupplyCurrentLimit = 40;
 
         //  ------Spindexter Speed Multipliers------
-        public static final double kIndexerSpeedMultiplier = 1;
-        public static final double kTunnelSpeedMultiplier = 1 / 3; //  (ratio of Omniwheel r to Tunnel Flywheel r)
+        public static final double kIndexerSpeedMultiplier = 1.0 / 3.0; //  (ratio of Omniwheel r to Tunnel Flywheel r)
+        public static final double kTunnelSpeedMultiplier = 1.0;
 
         //  ------Spindexter Ramp Time Value------
         public static final double kIndexerRampTime = 1;
-        public static final double kTunnelRampTime = 1;
+        public static final double kTunnelRampTime = 0.5;
 
         //  ------Indexer PID Values------
-        public static final double kIndexerV = 0.12;
-        public static final double kIndexerP = 0.11;
+        public static final double kIndexerV = 0.00009;
+        public static final double kIndexerS = 0.0;
+        public static final double kIndexerP = 0.0001;
+        public static final double kIndexerI = 0.0; //  Must be 0 because it doesn't need to go to a certain position
+        public static final double kIndexerD = 0.0; //  Must be 0 because it doesn't need to go to a certain position
 
         //  ------Tunnel PID Values------
         public static final double kTunnelV = 0.12;
