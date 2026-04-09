@@ -10,6 +10,7 @@ public class Constants {
     /*
      *  ------INTAKE------
      * -Intake: Neo 550 12:1 Gear
+     * -Open-Loop
      * 
      */
     public static class IntakeConstants {
@@ -36,6 +37,7 @@ public class Constants {
      *  ------SPINDEXTER------
      * -Indexer: Neo 550 Direct
      * -Tunnel: Falcon 500 Direct
+     * -Closed-Loop
      * 
      */
     public static class SpindexterConstants {
@@ -75,7 +77,13 @@ public class Constants {
 
     }
 
-    //  2 Motors for Turret Subsystem
+    /*
+     *  ------Turret------
+     * -Hood: Neo 500 Direct
+     * -Base: Falcon 500
+     * -Shooter: Kraken x60
+     * 
+     */
     public static class TurretConstants {
 
         //  Turret Motor IDs
@@ -111,8 +119,13 @@ public class Constants {
         public static final double kHoodI = 0.0;
         public static final double kHoodD = 0.0;
 
-        //  Turret Hood Gear Ratio
-        public static final double kHoodConversionFactor = 360.0 / 100.0; // Conversion Factor = 360 / Total Gear Ratio
+        //  Turret Gear Ratios
+        public static final double kHoodGearRatio = 1;
+        public static final double kShooterGearRatio = 12.0 / 18.0;
+        public static final double kBaseGearRatio = 14.0 / 200.0;
+
+        //  Turret Conversion Factors
+        public static final double kHoodConversionFactor = 360.0 / kHoodGearRatio; // Conversion Factor = 360 / Total Gear Ratio
 
     }
 
