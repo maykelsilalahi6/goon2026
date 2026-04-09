@@ -1,5 +1,10 @@
 package frc.robot.Constants;
 
+/*
+ * Note while tuning PID:
+ * REVLib kV - DutyCycleOutput / Speed
+ * Phoenix 6 kV - VelocityVoltage / Speed
+ */
 public class Constants {
 
     /*
@@ -21,15 +26,9 @@ public class Constants {
         //  Intake Ramp Time Value
         public static final double kIntakeRampTime = 1;
 
-        //  Intake PID Values
-        public static final double kIntakeV = 0.0;
-        public static final double kIntakeS = 0.0;
-        public static final double kIntakeP = 0.0;
-        public static final double kIntakeI = 0.0;
-        public static final double kIntakeD= 0.0;
-
-        //  Intake Gear Ratio
-        public static final double kIntakeConversionFactor = 12 / 1;
+        //  Intake Gear Ratio/Max Speed Logic
+        public static final double kIntakeConversionFactor = 1 / 12;
+        public static final double kMaxSpeed = 11000.0 / 12; // Max Speed of Intake Roller in RPM
 
     }
 
@@ -56,22 +55,22 @@ public class Constants {
         public static final int kTunnelSupplyCurrentLimit = 40;
 
         //  ------Spindexter Speed Multipliers------
-        public static final double kIndexerSpeedMultiplier = 1.0 / 3.0; //  (ratio of Omniwheel r to Tunnel Flywheel r)
+        public static final double kIndexerSpeedMultiplier = 1.0 / 3.0; // (ratio of Omniwheel r to Tunnel Flywheel r)
         public static final double kTunnelSpeedMultiplier = 1.0;
 
         //  ------Spindexter Ramp Time Value------
-        public static final double kIndexerRampTime = 1;
+        public static final double kIndexerRampTime = 0.5;
         public static final double kTunnelRampTime = 0.5;
 
         //  ------Indexer PID Values------
         public static final double kIndexerV = 0.00009;
         public static final double kIndexerS = 0.0;
         public static final double kIndexerP = 0.0001;
-        public static final double kIndexerI = 0.0; //  Must be 0 because it doesn't need to go to a certain position
-        public static final double kIndexerD = 0.0; //  Must be 0 because it doesn't need to go to a certain position
+        public static final double kIndexerI = 0.0; // Must be 0 because it doesn't need to go to a certain position
+        public static final double kIndexerD = 0.0; // Must be 0 because it doesn't need to go to a certain position
 
         //  ------Tunnel PID Values------
-        public static final double kTunnelV = 0.12;
+        public static final double kTunnelV = 0.1128; // 12V / (6380 / 60)
         public static final double kTunnelP = 0.11;
 
     }
