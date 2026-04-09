@@ -142,7 +142,7 @@ public class RobotContainer {
         // reset the field-centric heading on y press
         m_joystick.y().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
-        m_joystick.leftTrigger().whileTrue(m_SpindexterSubsystem.runSpindexterCommand(60).alongWith(m_TurretShooter.runShooterCommand(80))).whileFalse(m_SpindexterSubsystem.stopSpindexterCommand().alongWith(m_TurretShooter.stopShooterCommand()));
+        m_joystick.leftTrigger().whileTrue(m_SpindexterSubsystem.runSpindexterCommand(60).alongWith(m_TurretShooter.runShooterCommand(90))).whileFalse(m_SpindexterSubsystem.stopSpindexterCommand().alongWith(m_TurretShooter.stopShooterCommand()));
         m_joystick.leftBumper().whileTrue(m_SpindexterSubsystem.runSpindexterCommand(-40)).whileFalse(m_SpindexterSubsystem.stopSpindexterCommand());
          m_joystick.a().whileTrue(
             

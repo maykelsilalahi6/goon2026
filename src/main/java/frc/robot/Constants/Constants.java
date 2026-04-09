@@ -110,9 +110,9 @@ public class Constants {
         public static final double kShooterV = 0.11;
 
         //  Turret Base PID Values
-        public static final double kBaseP = 0.0015;
+        public static final double kBaseP = 0.004;
         public static final double kBaseI = 0.0;
-        public static final double kBaseD = 0.0;
+        public static final double kBaseD = 0.00025;
 
         //  Turret Hood PID Values
         public static final double kHoodP = 0.0015;

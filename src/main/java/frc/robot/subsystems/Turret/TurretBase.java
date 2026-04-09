@@ -49,7 +49,7 @@ public class TurretBase extends SubsystemBase{
         m_turretBaseTalonFX.getConfigurator().apply(m_turretBaseConfigs);
 
         //  Applies tolerance
-        m_turretBasePID.setTolerance(0.5);
+        m_turretBasePID.setTolerance(0.25);
 
     }
 
