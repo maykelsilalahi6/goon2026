@@ -59,9 +59,9 @@ public class TurretBase extends SubsystemBase{
 
         if (ally.isPresent()) {
             if (ally.get() == Alliance.Red) {
-                m_limelightTable.getEntry("pipeline").setNumber(1);
-            } else {
                 m_limelightTable.getEntry("pipeline").setNumber(0);
+            } else {
+                m_limelightTable.getEntry("pipeline").setNumber(1);
             }
         }
 

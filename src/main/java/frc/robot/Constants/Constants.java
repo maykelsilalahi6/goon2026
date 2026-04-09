@@ -101,9 +101,9 @@ public class Constants {
         public static final double kTurretShooterSpeedMultiplier = 1;
         public static final double kTurretBaseSpeedMultiplier = 1;
 
-        //  Turret Base Angle Limitations
-        public static final int kTurretBaseForwardSoftLimitThreshold = 10;
-        public static final int kTurretBaseReverseSoftLimitThreshold = -10;
+        //  Turret Base Rotation Limitations
+        public static final double kTurretBaseForwardSoftLimitThreshold = 1.3;
+        public static final double kTurretBaseReverseSoftLimitThreshold = -4.3;
 
         //  Turret Shooter PV Values
         public static final double kShooterP = 0.12;

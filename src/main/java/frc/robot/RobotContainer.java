@@ -144,7 +144,12 @@ public class RobotContainer {
 
         m_joystick.leftTrigger().whileTrue(m_SpindexterSubsystem.runSpindexterCommand(60).alongWith(m_TurretShooter.runShooterCommand(80))).whileFalse(m_SpindexterSubsystem.stopSpindexterCommand().alongWith(m_TurretShooter.stopShooterCommand()));
         m_joystick.leftBumper().whileTrue(m_SpindexterSubsystem.runSpindexterCommand(-40)).whileFalse(m_SpindexterSubsystem.stopSpindexterCommand());
-
+         m_joystick.a().whileTrue(
+            
+            m_turretBase.run(
+                () -> m_turretBase.aimAtAprilTag() 
+            )
+        );
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
