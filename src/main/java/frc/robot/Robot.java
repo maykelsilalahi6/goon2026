@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix6.HootAutoReplay;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -46,7 +47,11 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void disabledInit() {}
+    public void disabledInit() {
+
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("throttle_set").setNumber(150);
+
+    }
 
     @Override
     public void disabledPeriodic() {}
@@ -57,6 +62,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("throttle_set").setNumber(0);
 
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().schedule(m_autonomousCommand);
@@ -71,6 +78,9 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("throttle_set").setNumber(0);
+
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().cancel(m_autonomousCommand);
         }

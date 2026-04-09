@@ -8,10 +8,14 @@ import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -19,15 +23,23 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.TunerConstants;
 import frc.robot.Subsystems.CommandSwerveDrivetrain;
+//import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.Subsystems.SpindexterSubsystem;
+import frc.robot.Subsystems.Turret.TurretBase;
+import frc.robot.Subsystems.Turret.TurretShooter;
 
 
 
 
 public class RobotContainer {
 
-    // private SendableChooser<Command> autoChooser;
+    private final SendableChooser<Command> autoChooser;
     boolean fieldcentriccount = true;
 
+    //private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+    private final SpindexterSubsystem m_SpindexterSubsystem = new SpindexterSubsystem();
+    private final TurretShooter m_TurretShooter = new TurretShooter();
+    private final TurretBase m_turretBase = new TurretBase();
 
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
@@ -78,23 +90,23 @@ public class RobotContainer {
 
     public RobotContainer() {
 
-        // NamedCommands.registerCommand("exampleCommand", m_turretShooter.setMotorShooter());
+        //NamedCommands.registerCommand("sweepRunIntake", m_IntakeSubsystem.runIntakeCommand(200).withTimeout(5));
 
         configureBindings();
 
         // For convenience a programmer could change this when going to competition.
-    //     boolean isCompetition = true;
+        boolean isCompetition = true;
 
-    //     // Build an auto chooser. This will use Commands.none() as the default option.
-    //     // As an example, this will only show autos that start with "comp" while at
-    //     // competition as defined by the programmer
-    //     autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
-    //         (stream) -> isCompetition
-    //             ? stream.filter(auto -> auto.getName().startsWith("comp"))
-    //             : stream
-    // );
+        // Build an auto chooser. This will use Commands.none() as the default option.
+        // As an example, this will only show autos that start with "comp" while at
+        // competition as defined by the programmer
+        autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+            (stream) -> isCompetition
+                ? stream.filter(auto -> auto.getName().startsWith("comp"))
+                : stream
+    );
 
-    // SmartDashboard.putData("Auto Chooser", autoChooser);
+    SmartDashboard.putData("Auto Chooser", autoChooser);
 
   }
 
@@ -130,14 +142,16 @@ public class RobotContainer {
         // reset the field-centric heading on y press
         m_joystick.y().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
+        m_joystick.leftTrigger().whileTrue(m_SpindexterSubsystem.runSpindexterCommand(60).alongWith(m_TurretShooter.runShooterCommand(80))).whileFalse(m_SpindexterSubsystem.stopSpindexterCommand().alongWith(m_TurretShooter.stopShooterCommand()));
+        m_joystick.leftBumper().whileTrue(m_SpindexterSubsystem.runSpindexterCommand(-40)).whileFalse(m_SpindexterSubsystem.stopSpindexterCommand());
+
+
         drivetrain.registerTelemetry(logger::telemeterize);
 
         }
 
-    
-
     public Command getAutonomousCommand() {
-        return new PathPlannerAuto("");
+        return autoChooser.getSelected();
     }
 }
 

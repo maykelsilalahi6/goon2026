@@ -4,6 +4,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.Constants.TurretConstants.*;
@@ -33,17 +34,34 @@ public class TurretShooter extends SubsystemBase{
     }
 
     //  Sets the Turret Shooter Motor speed
-    public void setMotorShooter(double speed) {
+    public void setMotorShooter(double RPS) {
 
         //  Applies turret shooter speed multiplier
-        double calculatedSpeed = speed * -kTurretShooterSpeedMultiplier;
+        double calculatedRPS = RPS * -kTurretShooterSpeedMultiplier;
 
         //  Apply only the requested speed to the motor
-        m_turretShooterTalonFX.setControl(m_turretShooterVelocityRequest.withVelocity(calculatedSpeed));
+        m_turretShooterTalonFX.setControl(m_turretShooterVelocityRequest.withVelocity(calculatedRPS));
     }
 
+    /**
+     * Runs the indexer continuously at the specified speed.
+     */
+    public Command runShooterCommand(double speed) {
 
+        return this.run(() -> {
+            setMotorShooter(speed);
+        });
+    }
 
+    /**
+     * Stops the indexer instantly.
+     */
+    public Command stopShooterCommand() {
+
+        return this.runOnce(() -> {
+            setMotorShooter(0.0);
+        });
+    }
 
 }
 

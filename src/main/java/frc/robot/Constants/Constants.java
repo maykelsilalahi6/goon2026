@@ -16,7 +16,7 @@ public class Constants {
     public static class IntakeConstants {
 
         //  Intake Motor IDs
-        public static final int kIntakeMotorID = 18;
+        // public static final int kIntakeMotorID = 18;
 
         //  Intake Current Limits
         public static final double kIntakeStatorCurrentLimit = 40.0;
@@ -29,13 +29,13 @@ public class Constants {
 
         //  Intake Gear Ratio/Max Speed Logic
         public static final double kIntakeConversionFactor = 1 / 12;
-        public static final double kMaxSpeed = 11000.0 / 12; // Max Speed of Intake Roller in RPM
+        public static final double kMaxRPM = 11000.0 / 12; // Max Speed of Intake Roller in RPM
 
     }
 
     /*
      *  ------SPINDEXTER------
-     * -Indexer: Neo 550 Direct
+     * -Indexer: Falcon 500 Direct
      * -Tunnel: Falcon 500 Direct
      * -Closed-Loop
      * 
@@ -65,15 +65,15 @@ public class Constants {
         public static final double kTunnelRampTime = 0.5;
 
         //  ------Indexer PID Values------
-        public static final double kIndexerV = 0.00009;
+        public static final double kIndexerV = 0.1128; // 12V / (6380 / 60)
         public static final double kIndexerS = 0.0;
-        public static final double kIndexerP = 0.0001;
+        public static final double kIndexerP = 0.001;
         public static final double kIndexerI = 0.0; // Must be 0 because it doesn't need to go to a certain position
         public static final double kIndexerD = 0.0; // Must be 0 because it doesn't need to go to a certain position
 
         //  ------Tunnel PID Values------
         public static final double kTunnelV = 0.1128; // 12V / (6380 / 60)
-        public static final double kTunnelP = 0.11;
+        public static final double kTunnelP = 0.001;
 
     }
 
@@ -87,7 +87,7 @@ public class Constants {
     public static class TurretConstants {
 
         //  Turret Motor IDs
-        public static final int kTurretHoodMotorID = 19;
+        public static final int kTurretHoodMotorID = 16;
         public static final int kTurretBaseMotorID = 13;
         public static final int kTurretShooterMotorID = 15;
 
