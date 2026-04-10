@@ -31,17 +31,17 @@ public class Robot extends TimedRobot {
         m_timeAndJoystickReplay.update();
         CommandScheduler.getInstance().run(); 
 
-        double forward = 0.3;
-        double side = 0.0;
-        double up = 0.5;
-        double roll = 0.0;
-        double pitch = -30.0;
-        double yaw = 0.0;
+        // double forward = 0.3;
+        // double side = 0.0;
+        // double up = 0.5;
+        // double roll = 0.0;
+        // double pitch = -30.0;
+        // double yaw = 0.0;
 
-        LimelightHelpers.setCameraPose_RobotSpace(
-            "",
-            forward, side, up, roll, pitch, yaw
-        );
+        // LimelightHelpers.setCameraPose_RobotSpace(
+        //     "",
+        //     forward, side, up, roll, pitch, yaw
+        // );
         // LimelightHelpers.SetRobotOrientation();
 
     }
