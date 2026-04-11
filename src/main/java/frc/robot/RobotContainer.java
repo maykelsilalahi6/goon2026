@@ -11,6 +11,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -48,6 +49,7 @@ public class RobotContainer {
     //private final CommandXboxController joystick2 = new CommandXboxController(1);
 
     private final SlewRateLimiter m_accelLimiter = new SlewRateLimiter(1.0);
+        private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(0.25);
     private double m_lastJoystickMag = 0.0;
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
@@ -77,6 +79,27 @@ public class RobotContainer {
             double ratio = limitedMag / currentMag;
             return new Translation2d(xInput * ratio, yInput * ratio);
         }
+
+private Rotation2d getLimitedRotation(double aInput) {
+    // 1. Get the true magnitude (0.0 to 1.0)
+    double currentMag = Math.abs(aInput);
+    double limitedMag;
+
+    // 2. Compare magnitudes to see if we are decelerating
+    if (currentMag < m_lastJoystickMag) {
+        // We are letting go of the stick. Instantly drop speed and reset limiter.
+        m_accelLimiter.reset(currentMag);
+        limitedMag = currentMag;
+    } else {
+        limitedMag = m_rotLimiter.calculate(currentMag);
+    }
+
+    m_lastJoystickMag = limitedMag;
+
+    double limitedInput = limitedMag * Math.signum(aInput);
+
+    return new Rotation2d(limitedInput * Math.PI); 
+}
 
     public RobotContainer() {
 
@@ -111,7 +134,7 @@ public class RobotContainer {
 
                 drive.withVelocityX(getLimitedTranslation(-m_joystick.getLeftY(), -m_joystick.getLeftX()).getX() * MaxSpeed) // Drive forward with negative Y (forward)
                     .withVelocityY(getLimitedTranslation(-m_joystick.getLeftY(), -m_joystick.getLeftX()).getY() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-m_joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                    .withRotationalRate(getLimitedRotation(-m_joystick.getRightX()).getRadians() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
 
